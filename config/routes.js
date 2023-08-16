@@ -1,20 +1,6 @@
-//chamando as dependencias e atribuindo atraves das variaveis dentro do javascript
 const express = require('express')
-const morgan = require('morgan')
-const cors = require('cors')
-const bodyParser = require('body-parser')
-const routes = require('./config/routes')
-const res = require('express/lib/response')
+const routes = express.Router()
 
-const app = express()
-
-app.use(morgan('dev'))
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(express.json())
-app.use(cors())
-app.use(routes)
-
-/*Rotas movidas para config/routes
 let db = [
     { "\"id\"": 1, "\"Nome\"": "Starla Musicka", "\"Data de Nascimento\"": "04/09/1988", "\"Sexo\"": "F"}, 
     { "\"id\"": 2, "\"Nome\"": "Cherice Fellgett", "\"Data de Nascimento\"": "04/02/1959", "\"Sexo\"": "M"},
@@ -29,11 +15,11 @@ let db = [
 ]
 //rota defaut(nenhum nome depois da porta)
 //requisição e resposta que retornará o conteúdo da variável db
-app.get('/', (req, res) => {
+routes.get('/', (req, res) => {
     return res.json(db)
 })
 //Criar o corpo da requisição
-app.post('/add', (req, res) => {
+routes.post('/add', (req, res) => {
     const body = req.body 
 
     if (!body)
@@ -41,8 +27,7 @@ app.post('/add', (req, res) => {
 
     db.push(body)
     return res.json(body)
-})*/
-
-app.listen(8090, () => {
-    console.log(`Express started at http://localhost:8090`)
 })
+
+
+module.exports = routes
