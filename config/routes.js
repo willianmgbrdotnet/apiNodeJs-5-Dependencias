@@ -1,7 +1,51 @@
 const express = require('express')
 const routes = express.Router()
+const mysql = require('mysql2')
 
-let db = [
+//conectionString
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '123456',
+    database: 'mysql8'
+})
+
+//R ead
+routes.get('/', (req, res) => {
+    connection.query('SELECT * FROM pessoas', (err, results) => {
+        if (err) {
+            console.error('Não foi possível acessar a lista de pessoas', err)
+            return res.status(500).json({error: 'Não foi possível acessar a lista de pessoas'})
+        }
+        //Retorna a lista de pessoas em caso de sucesso
+        return res.json(results)        
+    })
+})
+//C reate
+routes.post('/add', (req, res) => {
+    const body = req.body
+
+    if(!body)
+        return res.status(400).json({error: 'Erro. Verifique se os dados correspondem ao padrão da tabela pessoas'})
+    
+        connection.query('INSERT INTO pessoas SET ?', body, (err, result) => {
+            if (err) {
+                console.error('Erro ao registrar uma nova pessoa', err)
+                return res.status(500).json({error: 'Erro ao registrar uma nova pessoa'})
+            }
+            return res.json({id: result.insertId, ...body})
+        })
+})
+
+
+
+
+
+
+
+
+
+/*let db = [
     { "id": 1, "Nome": "Starla Musicka", "Data de Nascimento": "04/09/1988", "Sexo": "F" },
     { "id": 2, "Nome": "Cherice Fellgett", "Data de Nascimento": "04/02/1959", "Sexo": "M" },
     { "id": 3, "Nome": "Nathan Hacquel", "Data de Nascimento": "08/07/1966", "Sexo": "M" },
@@ -42,6 +86,6 @@ routes.delete('/:id', (req, res) => {
 
     return res.json(newDB)
 
-})
+})*/
 
 module.exports = routes
