@@ -37,3 +37,15 @@ trocar dados em memória para Banco de Dados real CRUD
 <li>Metodo GET http://localhost:8090</li>
 
 <li>Metodo POST http://localhost:8090/add</li>
+
+<li>Método DELETE http://localhost:8090/2</li>
+Colocar depois da porta o numero do registro a ser excluído
+
+<li>Metodo PUT http://localhost:8090/1</li>
+Colocar depois da porta o numero do registro a ser editado e,
+Definir no corpo da requisição o novo parametro do registro.
+
+<li>Método GetById http://localhost:8090/3</li>
+Colocar depois da porta o numero do registro a ser pesquisado
+
+## Todos os métodos testados no Postman e API está Completa

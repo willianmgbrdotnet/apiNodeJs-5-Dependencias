@@ -4,7 +4,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const routes = require('./config/routes')
-const res = require('express/lib/response')
+//O objeto "res" não é mais necessário aqui. Já é passado como parâmetro nas requisições
 
 const app = express()
 

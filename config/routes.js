@@ -11,6 +11,7 @@ const connection = mysql.createConnection({
 })
 
 //R ead
+//A tabela pessoas será mostrada quando a rota padrão da API for acessada
 routes.get('/', (req, res) => {
     connection.query('SELECT * FROM pessoas', (err, results) => {
         if (err) {
@@ -71,6 +72,24 @@ routes.put('/:id', (req, res) => {
         return res.json({ Sucesso: 'Registro Atualizado com sucesso'})
     })
 
+})
+//GetById
+routes.get('/:id', (req, res) => {
+    const id = req.params.id 
+    //A cláusula WHERE é importante para especificar o registro em questão
+    connection.query('SELECT * FROM pessoas WHERE id = ?', [id], (err, result) => {
+        if(err) {
+            console.error('O registro não foi Encontrado no banco de dados', err)
+            return res.status(500).json({error: 'O registro não foi Encontrado no banco de dados'})
+        }
+        //Se a quantidade de registros for igual a "0"
+        if(result.length === 0){
+            return res.status(404).json({error: 'Não existe este registro no banco de dados'})
+        }
+        //Como resultado, retornará o registro de índice "0".
+        //Ou seja, o primeiro registro
+        return res.json(result[0])
+    })
 })
 
 module.exports = routes
