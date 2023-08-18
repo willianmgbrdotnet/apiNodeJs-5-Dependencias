@@ -49,3 +49,5 @@ Definir no corpo da requisição o novo parametro do registro.
 Colocar depois da porta o numero do registro a ser pesquisado
 
 ## Todos os métodos testados no Postman e API está Completa
+
+### O SQLscript da Tabela "pessoas" está na pasta "data". Basta inserir em seu Schema de Banco de Dados.
